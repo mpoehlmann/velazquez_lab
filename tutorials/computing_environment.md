@@ -45,8 +45,6 @@ conda env create --file environment.yml
 ## Setting up ``conda``
 Edit the file ``~/.bash_profile`` and add the following line which corresponds to your operating system:
 ```bash
-source  /Applications/miniconda/etc/profile.d/conda.sh  # Mac
-source  ~/software/miniconda/etc/profile.d/conda.sh  # Linux/Windows
-
-conda activate labenv
+alias setup_conda='source  /Applications/miniconda/etc/profile.d/conda.sh && conda activate labenv'  # Mac
+alias setup_conda='source  ~/software/miniconda/etc/profile.d/conda.sh && conda activate labenv'  # Linux/Windows
 ```
