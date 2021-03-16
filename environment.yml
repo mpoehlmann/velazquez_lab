@@ -1,0 +1,34 @@
+# To run: conda env create --file environment.yml
+# Last updated: 2021/03/15
+name: labenv
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - asyncssh
+  - ipywidgets
+  - jupyterlab=2.2.6
+  - line_profiler
+  - lmfit
+  - matplotlib
+  - memory_profiler
+  - mpmath
+  - multiprocess
+  - nodejs=14.9.0
+  - numba
+  - numericalunits
+  - numexpr
+  - numpy
+  - pandas
+  - paramiko
+  - peakutils
+  - pip
+  - plotly=4.9.0
+  - python=3.8.5
+  - root=6.22.2
+  - scipy
+  - scikit-learn
+  - sympy
+  - tqdm
+  - uncertainties
+  - uproot

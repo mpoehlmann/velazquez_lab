@@ -1,0 +1,17 @@
+# My custom choices
+__pycache__
+.ipynb_checkpoints
+.DS_Store
+build
+*.pstats
+*.root
+*.png
+*.pdf
+*.pyc
+*.so
+*.csv
+pyaris/filtering2.c
+.virtual_documents/
+*.egg-info/
+*.egg-info/
+*.egg
