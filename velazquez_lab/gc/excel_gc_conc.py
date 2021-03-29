@@ -1,21 +1,21 @@
 """Excel interface for GC concentration calculations."""
 import numericalunits as nu
 import uncertainties as un
-# import xlwings as xw
+import xlwings as xw
 
 import velazquez_lab.gc.gc_conc as gc
 from velazquez_lab.utils.gas import FARADAY_CONST, gas, ideal_gas_moles, SCCM
 
 
-# @xw.func
-# @xw.arg('gas_comp', str)
-# @xw.arg('check', str)
-# @xw.arg('check_rate_val', float)
-# @xw.arg('check_rate_err', float)
-# @xw.arg('carrier', str)
-# @xw.arg('carrier_rate_val', float)
-# @xw.arg('carrier_rate_err', float)
-# @xw.arg('is_set_rate', bool)
+@xw.func
+@xw.arg('gas_comp', str)
+@xw.arg('check', str)
+@xw.arg('check_rate_val', float)
+@xw.arg('check_rate_err', float)
+@xw.arg('carrier', str)
+@xw.arg('carrier_rate_val', float)
+@xw.arg('carrier_rate_err', float)
+@xw.arg('is_set_rate', bool)
 def excel_gc_conc(gas_comp, check, check_rate_val, check_rate_err, carrier, carrier_rate_val, carrier_rate_err, is_set_rate):
   """Excel interface for GC concentration calculations.
   Args:
