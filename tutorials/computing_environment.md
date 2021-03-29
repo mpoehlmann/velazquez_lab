@@ -2,10 +2,11 @@
 To run Python, we need to properly set up your computing environment.
 What follows is an opinionated guide.
 
-## Installing ``conda``
+## ``conda``
+### Installation
 First, we will use [``conda``](https://docs.conda.io/en/latest/) to manage our enviroment and installed packages.
 
-### Macs 🙂
+#### Macs 🙂
 Open Terminal and run the following commands:
 ```bash
 xcode-select --install
@@ -14,7 +15,7 @@ wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
 bash Miniconda3-latest-MacOSX-x86_64.sh -b -p /Applications/miniconda
 ```
 
-### Linux 😐
+#### Linux 😐
 Open Terminal and run the following commands:
 ```bash
 cd ~
@@ -24,12 +25,12 @@ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh -b -p ~/software/miniconda
 ```
 
-### Windows 😕
+#### Windows 😕
 When using Windows, you should install a Ubuntu (Linux) subsystem.
 See the [instructions here](https://ubuntu.com/tutorials/ubuntu-on-windows#1-overview).
 Then, follow the Linux instructions above.
 
-## Create ``conda`` environment
+### Creating an environment
 Before we create the environment, we need to active ``conda``:
 ```bash
 source  /Applications/miniconda/etc/profile.d/conda.sh  # Mac
@@ -42,9 +43,12 @@ Navigate to the ``velazquez_lab`` project folder and run:
 conda env create --file environment.yml
 ```
 
-## Setting up ``conda``
+### Activating
 Edit the file ``~/.bash_profile`` and add the following line which corresponds to your operating system:
 ```bash
-alias setup_conda='source  /Applications/miniconda/etc/profile.d/conda.sh && conda activate labenv'  # Mac
-alias setup_conda='source  ~/software/miniconda/etc/profile.d/conda.sh && conda activate labenv'  # Linux/Windows
+# Mac
+alias setup_conda='source  /Applications/miniconda/etc/profile.d/conda.sh && conda activate labenv'
+
+# Linux/Windows
+alias setup_conda='source  ~/software/miniconda/etc/profile.d/conda.sh && conda activate labenv'
 ```

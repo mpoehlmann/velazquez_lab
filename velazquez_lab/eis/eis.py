@@ -14,14 +14,14 @@ from logger import Logger
 
 
 def circle(x, r, x0, y0):
+  @np.vectorize
   def _func(_x):
     # return np.sqrt(r**2 - (x-x0)**2) + y0
     _val = r**2 - (_x-x0)**2
     if _val < 0:
       return -np.sqrt(np.abs(_val)) + y0
     return np.sqrt(_val) + y0
-  _vecfunc = np.vectorize(_func)
-  return _vecfunc(x)
+  return func(x)
 
 # def circle_gradient(x, r, x0, y0):
 
