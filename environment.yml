@@ -1,6 +1,6 @@
 # To run: conda env create --file environment.yml
 
-name: labenv
+name: labenv3
 channels:
   - conda-forge
   - defaults
@@ -24,6 +24,7 @@ dependencies:
     - dash_bootstrap_components
     - dash_daq
     - dash_trich_components
+    - jupyterlab-spreadsheet-editor
     - molmass
   - plotly
   - pymc3
