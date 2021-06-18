@@ -3,9 +3,6 @@ dash
 dash_bootstrap_components
 dash_daq
 dash_trich_components
-ipywidgets
-jupyterlab<3
-jupyter-dash
 lmfit
 matplotlib
 mkl
