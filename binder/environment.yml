@@ -1,4 +1,4 @@
-# To run: conda env create --file environment.yml
+# Conda environment used for Binder
 
 name: labenv
 channels:
@@ -35,4 +35,3 @@ dependencies:
   - tqdm
   - uncertainties
   - voila
-  - xlwings
