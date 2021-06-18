@@ -4,7 +4,7 @@
 
 Code to make Jessica's life easier (and for the Velázquez Lab).
 
-> Michael Poehlmann
+> Michael Poehlmann<br>
 > poehlmann@ucdavis.edu
 
 To download this repository, run
