@@ -1,0 +1,135 @@
+/* BASE STYLES */
+:root {
+  --spacing: 0.25rem;
+}
+
+
+/* BOOTSTRAP GRID */
+.container {
+  padding: 0;
+}
+.page-content {
+  padding: calc(4 * var(--spacing));
+}
+.row {
+  margin: 0 calc(-1 * var(--spacing)) 0;
+}
+.col {
+  padding: 0 var(--spacing) 0;
+}
+.col-1half {
+  width: 12.5%;
+}
+.col-2half {
+  width: 20.83333%;
+}
+.col-3half {
+  width: 29.16667%;
+}
+.col-4half {
+  width: 37.5%;
+}
+.col-5half {
+  width: 45.83333%;
+}
+.col-6half {
+  width: 54.16667%;
+}
+.col-7half {
+  width: 62.5%;
+}
+.col-8half {
+  width: 70.83333%;
+}
+.col-9half {
+  width: 79.16667%;
+}
+.col-10half5 {
+  width: 87.5%;
+}
+.col-11half {
+  width: 95.8333%;
+}
+
+
+/* BOOTSTRAP MODAL (INFO) */
+.modal-header {
+  padding: calc(2 * var(--spacing));
+}
+.modal-title {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-body {
+  padding: calc(2 * var(--spacing));
+}
+.modal-body h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.modal-body h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.modal-body h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+.modal-body h3 {
+  font-size: 1.05625rem;
+  font-weight: 500;
+}
+
+
+/* BOOTSTRAP CARD */
+.card {
+  border-radius: 0;
+  border-width: 0;
+}
+.card-header  {
+  border-width: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(3 * var(--spacing)) calc(5 * var(--spacing)) calc(3 * var(--spacing));
+}
+.card-body {
+  padding: calc(2 * var(--spacing));
+}
+
+/* NAVBAR */
+
+
+/* ICONS */
+I {
+  cursor: pointer;
+}
+
+/* FILE UPLOADER */
+.file-uploader {
+  cursor: pointer;
+  width: '90%';
+  height: 40px;
+  line-height: 40px;
+  border-width: 1px;
+  border-style: dashed;
+  border-radius: 5px;
+  text-align: center;
+  margin': auto;
+}
+
+
+/* MISC */
+.section-header {
+  border-width: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(3 * var(--spacing)) calc(5 * var(--spacing)) calc(3 * var(--spacing));
+  background-color: rgba(0, 0, 0, 0.03);
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  text-align: center;
+}

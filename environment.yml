@@ -1,37 +1,37 @@
 # To run: conda env create --file environment.yml
-# Last updated: 2021/03/15
+
 name: labenv
 channels:
   - conda-forge
   - defaults
 dependencies:
-  - asyncssh
+  - arviz=0.11.0
+  - dash
   - ipywidgets
-  - jupyterlab=2.2.6
-  - line_profiler
+  - jupyterlab
+  - jupyter-dash
   - lmfit
   - matplotlib
-  - memory_profiler
-  - mpmath
+  - mkl
   - multiprocess
-  - nodejs=14.9.0
   - numba
   - numericalunits
-  - numexpr
   - numpy
   - pandas
   - paramiko
-  - peakutils
   - pip
-  - plotly=4.9.0
+  - pip:
+    - dash_bootstrap_components
+    - dash_daq
+    - dash_trich_components
+    - molmass
+  - plotly
   - pymc3
   - python=3.8.5
-  - root=6.22.2
   - scipy
-  - scikit-learn
   - seaborn
-  - sympy
+  - theano-pymc
   - tqdm
   - uncertainties
-  - uproot
+  - voila
   - xlwings
