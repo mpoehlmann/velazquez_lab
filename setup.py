@@ -25,6 +25,6 @@ setup(
   # scripts=['scripts/create_pol_curves.py',
   #         ],
   zip_safe=False,
-  install_requires=required,
+#   install_requires=required,
 )
 
