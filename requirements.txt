@@ -4,6 +4,7 @@ dash_bootstrap_components
 dash_daq
 dash_trich_components
 gunicorn
+jupyter-dash
 lmfit
 matplotlib
 mkl
