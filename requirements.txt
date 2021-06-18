@@ -3,8 +3,8 @@ dash
 dash_bootstrap_components
 dash_daq
 dash_trich_components
-gunicorn
 jupyter-dash
+jupyterlab<3
 lmfit
 matplotlib
 mkl
