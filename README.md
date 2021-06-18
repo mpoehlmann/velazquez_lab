@@ -31,21 +31,19 @@ ipyvuetify
 
 ## Project structure
 ``./``
-├── ``environment.yml``: file used to create ``conda`` computing environment
-├── ``README.txt``: important project information and instructions
-├── ``scripts/``: scripts to run various types of analyses
-├── ``tutorials/``: a collection of useful tutorials on topics including Python, coding, curve-fitting, and error propagation
-│   └── ``computing_environment.md``: instructions for setting up your computing environment
-└── ``velazquez_lab/``: folder containing all Python modules
-    ├── ``eis/``: electrochemical impedance spectroscopy tools
-    ├── ``gc/``: gas chromatography tools
-    ├── ``nmr/``: nuclear magnetic resonance tools
-    ├── ``pol/``: polarization curve tools
-    │   ├── ``julius/``: newly implemented Tafel slope method
-    │   └── ``legacy/``: code used for previous calculations of Tafel slope
-    └── ``utils/``: utilities used throughout project
-
-
+├── ``environment.yml``: file used to create ``conda`` computing environment <br>
+├── ``README.txt``: important project information and instructions <br>
+├── ``scripts/``: scripts to run various types of analyses <br>
+├── ``tutorials/``: a collection of useful tutorials on topics including Python, coding, curve-fitting, and error propagation <br>
+│   └── ``computing_environment.md``: instructions for setting up your computing environment <br>
+└── ``velazquez_lab/``: folder containing all Python modules <br>
+    ├── ``eis/``: electrochemical impedance spectroscopy tools <br>
+    ├── ``gc/``: gas chromatography tools <br>
+    ├── ``nmr/``: nuclear magnetic resonance tools <br>
+    ├── ``pol/``: polarization curve tools <br>
+    │   ├── ``julius/``: newly implemented Tafel slope method <br>
+    │   └── ``legacy/``: code used for previous calculations of Tafel slope <br>
+    └── ``utils/``: utilities used throughout project <br>
 
 
 
