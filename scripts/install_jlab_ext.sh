@@ -29,6 +29,7 @@ LAB_EXTENSIONS=(
   # # "@osscar/appmode-jupyterlab"
   # "jupyter-vuetify"
   # "ipycanvas"
+  "jupyterlab-dash"
 )
 
 for i in ${!LAB_EXTENSIONS[@]}; do
