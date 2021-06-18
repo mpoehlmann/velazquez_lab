@@ -15,6 +15,7 @@ LAB_EXTENSIONS=(
   "@jupyterlab/toc"
   "@ijmbarr/jupyterlab_spellchecker"
   "jupyterlab-plotly"
+  "@j123npm/jupyterlab-dash"
   "plotlywidget@4.9.0"
   "jupyterlab-drawio"
   "@aquirdturtle/collapsible_headings"

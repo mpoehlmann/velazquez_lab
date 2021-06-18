@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ./scripts/install_jlab_ext.sh
-echo "HERE"
+./scripts/install_jlab_ext.sh
+# echo "HERE"
 
 exec "$@" 
