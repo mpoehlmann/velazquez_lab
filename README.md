@@ -31,20 +31,20 @@ ipyvuetify
 
 ## Project structure
 ```
-``./``
-├── ``environment.yml``: file used to create ``conda`` computing environment <br>
-├── ``README.txt``: important project information and instructions
-├── ``scripts/``: scripts to run various types of analyses
-├── ``tutorials/``: a collection of useful tutorials on topics including Python, coding, curve-fitting, and error propagation
-│   └── ``computing_environment.md``: instructions for setting up your computing environment
-└── ``velazquez_lab/``: folder containing all Python modules
-    ├── ``eis/``: electrochemical impedance spectroscopy tools
-    ├── ``gc/``: gas chromatography tools
-    ├── ``nmr/``: nuclear magnetic resonance tools
-    ├── ``pol/``: polarization curve tools
-    │   ├── ``julius/``: newly implemented Tafel slope method
-    │   └── ``legacy/``: code used for previous calculations of Tafel slope
-    └── ``utils/``: utilities used throughout project
+./
+├── environment.yml: file used to create conda computing environment <br>
+├── README.txt: important project information and instructions
+├── scripts/: scripts to run various types of analyses
+├── tutorials/: a collection of useful tutorials on topics including Python, coding, curve-fitting, and error propagation
+│   └── computing_environment.md: instructions for setting up your computing environment
+└── velazquez_lab/: folder containing all Python modules
+    ├── eis/: electrochemical impedance spectroscopy tools
+    ├── gc/: gas chromatography tools
+    ├── nmr/: nuclear magnetic resonance tools
+    ├── pol/: polarization curve tools
+    │   ├── julius/: newly implemented Tafel slope method
+    │   └── legacy/: code used for previous calculations of Tafel slope
+    └── utils/: utilities used throughout project
 ```
 
 
