@@ -19,9 +19,9 @@ setup(
   author_email='poehlmann@ucdavis.edu',
   url='https://github.com/mpoehlmann/velazquez_lab',
   packages=find_packages(exclude=('tutorials','scripts')),
-  package_dir={
-    'velazquez_lab': 'velazquez_lab',
-  },
+  # package_dir={
+  #   'velazquez_lab': 'velazquez_lab',
+  # },
   # scripts=['scripts/create_pol_curves.py',
   #         ],
   zip_safe=False,
