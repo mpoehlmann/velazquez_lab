@@ -21,6 +21,7 @@ dependencies:
   - paramiko
   - pip
   - pip:
+    # - -r file:requirements.txt
     - dash_bootstrap_components
     - dash_daq
     - dash_trich_components
