@@ -1,6 +1,6 @@
 # Velázquez Lab Code
 
-https://mybinder.org/v2/gh/mpoehlmann/velazquez_lab/main?urlpath=tree/app.ipynb
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mpoehlmann/velazquez_lab/main?filepath=app.ipynb)
 
 Code to make Jessica's life easier (and for the Velázquez Lab).
 
