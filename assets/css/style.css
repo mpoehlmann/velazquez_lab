@@ -93,7 +93,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: calc(3 * var(--spacing)) calc(5 * var(--spacing)) calc(3 * var(--spacing));
+  padding: calc(2 * var(--spacing)) calc(3 * var(--spacing)) calc(2 * var(--spacing));
 }
 .card-body {
   padding: calc(2 * var(--spacing));
@@ -127,8 +127,9 @@ I {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: calc(3 * var(--spacing)) calc(5 * var(--spacing)) calc(3 * var(--spacing));
+  padding: calc(2 * var(--spacing)) calc(3 * var(--spacing)) calc(2 * var(--spacing));
   background-color: rgba(0, 0, 0, 0.03);
+  /* background-color: var(--bs-primary); */
   letter-spacing: 0.1rem;
   text-transform: uppercase;
   text-align: center;

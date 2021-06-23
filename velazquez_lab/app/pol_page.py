@@ -51,6 +51,7 @@ def create_pol_page(app):
       html.Hr(),
       html.Div('Tafel slope calculation', className='section-header mb-1'),
       pol_row,
+      html.Hr(),
     ],
     className='page-content',
     fluid=True

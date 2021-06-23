@@ -3,7 +3,7 @@ See pol_page.py for usage.
 """
 
 import dash
-from dash.dash import no_update, PreventUpdate
+from dash.dash import no_update
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -266,7 +266,8 @@ def build_ecsa_inputs(app):
     return file_names, file_storage, fitres, fitres_df.to_dict(orient='records'), dlc_fig, fit_fig, ecsa_val, esca_val_text, is_fitoutput_open, download
 
   """Layout."""
-  f = open('docs/app/ecsa.md', 'r')
+  fpath = os.path.dirname(os.path.realpath(__file__))
+  f = open(f"{fpath}/../../assets/docs/ecsa.md", 'r')
   txt = f.read()
   info = templates.build_modal(app, 'ecsa', 'ECSA Instructions', dcc.Markdown(txt))
   content = c  # dbc.Container([dbc.Row(_c) for _c in c], fluid=True)

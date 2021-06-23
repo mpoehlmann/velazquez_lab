@@ -182,7 +182,8 @@ def build_pol_inputs(app):
   content.append(dbc.Alert(id='pol-gsa-output', className="alert-success"))
 
   """Layout."""
-  f = open('docs/app/pol.md', 'r')
+  fpath = os.path.dirname(os.path.realpath(__file__))
+  f = open(f"{fpath}/../../assets/docs/pol.md", 'r')
   txt = f.read()
   info = templates.build_modal(app, 'pol', 'Polarization Curve Instructions', dcc.Markdown(txt))
   layout = templates.build_card('POL: Inputs', content, info=info)

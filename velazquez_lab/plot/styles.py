@@ -13,29 +13,38 @@ def set_plotly_style(theme='light'):
     theme (str): Theme name
       Currently 'light' is implemented.
   """
-  if theme == 'light':
-    # ax_props = dict(showline=True, mirror=True, linecolor='black', linewidth=2, showgrid=True, gridwidth=1, gridcolor='lightgray', zeroline=True, zerolinewidth=2, zerolinecolor='lightgray')
-    ax_props = dict(
-      showline=True, mirror=True, linecolor='black', linewidth=2, showgrid=False, zeroline=False,
-      ticks='outside', tickwidth=2, tickprefix="<b>",ticksuffix ="</b>",
-      automargin=True,
+  ax_props = dict(
+    showline=True, mirror=True, linewidth=2, showgrid=False, zeroline=False,
+    ticks='outside', tickwidth=2, tickprefix="<b>",ticksuffix ="</b>",
+    automargin=True,
+  )
+  layout = go.Layout(
+      # width=600, height=450, autosize=False,
+      autosize=True,
+      margin={'l': 5, 'r': 5, 'b': 5, 't': 30, 'pad': 0},
+      font=dict(family='Arial', size=18),
+      legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.01),
     )
 
-    pio.templates["jessica"] = go.layout.Template(
-      layout=go.Layout(
-        # width=600,
-        # height=450,
-        # autosize=False,
-        autosize=True,
-        margin={'l': 5, 'r': 5, 'b': 5, 't': 30, 'pad': 0},
-        font=dict(family='Arial', size=18, color='black'),
-        xaxis=ax_props,
-        yaxis=ax_props,
-        legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.01),
-        colorway=colors,
-      )
-    )
-    pio.templates.default = "plotly_white+jessica"
+  if theme == 'light':
+    ax_props['linecolor'] = 'black'
+    layout['xaxis'] = ax_props
+    layout['yaxis'] = ax_props
+    layout['font']['color'] = 'black'
+    layout['colorway'] = colors
+
+    pio.templates["jessica_light"] = go.layout.Template(layout=layout)
+    pio.templates.default = "plotly_white+jessica_light"
+
+  elif theme == 'dark':
+    ax_props['linecolor'] = 'white'
+    layout['xaxis'] = ax_props
+    layout['yaxis'] = ax_props
+    layout['font']['color'] = 'white'
+    layout['colorway'] = colors
+
+    pio.templates["jessica_dark"] = go.layout.Template(layout=layout)
+    pio.templates.default = "plotly_dark+jessica_dark"
 
   else:
     raise ValueError(f"Theme {theme} not yet implemented.")
