@@ -85,14 +85,14 @@ def create_filt_page(app):
         window_max = len(file_df)
         if window_max%2 == 0:
           window_max -= 1
-    elif trig_id == 'filt-optimize-btn':
-      window_length = None
 
     if len(file_df) > 0:
       if window_length<=5 or window_length%2==0:
         show_error = True
         fig = create_filt_fig(file_df.iloc[:,1], None)
       else:
+        if trig_id == 'filt-optimize-btn':
+          window_length = None
         filt_y = filtering.apply_filter(file_df.iloc[:,1], window_length=window_length)
         output_storage = filt_y
         fig = create_filt_fig(file_df.iloc[:,1], filt_y)

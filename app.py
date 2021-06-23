@@ -19,7 +19,7 @@ from velazquez_lab.plot import styles
 styles.set_plotly_style('light')
 
 
-def build_app(start_page=1, theme='light', jupyter=False):
+def build_app(start_page=0, theme='light', jupyter=False):
   """Setup application."""
   styles.set_plotly_style(theme)
 
@@ -43,8 +43,8 @@ def build_app(start_page=1, theme='light', jupyter=False):
 
   """Define pages."""
   pages = pd.DataFrame([
-    dict(id='pg-pol', label='Polarization curves', content=create_pol_page),
     dict(id='pg-filt', label='Filtering', content=create_filt_page),
+    dict(id='pg-pol', label='Polarization curves', content=create_pol_page),
     # dict(id='id_2', label='Label 2', content=create_pol_page),
     # dict(id='id_3', label='Label 3', content=create_pol_page),
   ])
