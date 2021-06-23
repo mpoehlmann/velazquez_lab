@@ -23,11 +23,3 @@ seaborn
 theano-pymc
 tqdm
 uncertainties
-
-
-requests
-flask
-retrying
-ipython
-ipykernel
-ansi2html
