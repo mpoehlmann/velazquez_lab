@@ -3,11 +3,8 @@ __pycache__
 .ipynb_checkpoints
 .DS_Store
 *.pstats
-*.root
-*.pdf
 *.pyc
 *.so
-*.csv
 .virtual_documents/
 *.egg-info/
 *.egg
