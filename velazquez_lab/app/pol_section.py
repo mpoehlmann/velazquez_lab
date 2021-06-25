@@ -186,5 +186,5 @@ def build_pol_inputs(app):
   f = open(f"{fpath}/../../assets/docs/pol.md", 'r')
   txt = f.read()
   info = templates.build_modal(app, 'pol', 'Polarization Curve Instructions', dcc.Markdown(txt))
-  layout = templates.build_card('POL: Inputs', content, info=info)
+  layout = templates.build_card('Inputs', content, info=info)
   return layout

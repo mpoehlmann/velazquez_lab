@@ -7,6 +7,7 @@ import dash
 from jupyter_dash import JupyterDash
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
+import dash_bootstrap_components as dbc
 import dash_html_components as html
 import pandas as pd
 
@@ -43,31 +44,48 @@ def build_app(start_page=0, theme='light', jupyter=False):
 
   """Define pages."""
   pages = pd.DataFrame([
-    dict(id='pg-filt', label='Filtering', content=create_filt_page),
-    dict(id='pg-pol', label='Polarization curves', content=create_pol_page),
+    dict(id='pg-filt', label='Filtering', content=create_filt_page(app)),
+    dict(id='pg-pol', label='Polarization curves', content=create_pol_page(app)),
     # dict(id='id_2', label='Label 2', content=create_pol_page),
     # dict(id='id_3', label='Label 3', content=create_pol_page),
   ])
 
-  def create_page(i):
-    return [templates.build_navbar(app, pages, i, subtitle='Data Analysis Toolkit'), pages.loc[i, 'content'](app)]
-
 
   """Create layout and setup page loading."""
-  app.layout = html.Div(create_page(start_page), id='page-content')
+  def create_page(button_id):
+    for i, p in enumerate(pages.itertuples()):
+      if p.id == button_id:
+        header = dbc.NavbarBrand(p.label)
+        return p.content, header
+    return html.H1("404: page ID not found."), None
+
+  full_page = html.Div([
+    templates.build_navbar(app, pages, start_page, subtitle='Data Analysis Toolkit'),
+    html.Div(create_page(pages.loc[start_page, 'id']), id='page-content'),
+  ])
+
+  """Index layout."""
+  app.layout = full_page
+
+  """Complete layout."""
+  app.validation_layout = html.Div([
+    full_page,
+    *(c for c in pages['content']),
+  ])
 
   @app.callback(
     Output("page-content", "children"),
+    Output("navbar-page-name", "children"),
     *(Input(pid, 'n_clicks_timestamp') for pid in pages['id']),
+    # prevent_initial_call=True,
   )
-  def toggle_collapse(c, *inputs):
+  def load_page(*inputs):
     ctx = dash.callback_context
     button_id = ctx.triggered[0]['prop_id'].split('.')[0] if ctx.triggered else None
+    print(button_id)
     if button_id is None:
-      raise PreventUpdate
-    for i, p in enumerate(pages.itertuples()):
-      if p.id == button_id:
-        return create_page(i)
+      button_id = pages.loc[start_page, 'id']
+    return create_page(button_id)
 
   return app
 

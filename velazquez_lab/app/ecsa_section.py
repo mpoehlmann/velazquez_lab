@@ -78,7 +78,7 @@ def build_ecsa_fit_fig(fitres_df, fitres):
 
 
 def build_ecsa_inputs(app):
-  c = list()
+  content = list()
 
   """File upload."""
   storage = dcc.Store(data=dict(), id='esca-file-storage', storage_type='memory')
@@ -111,12 +111,12 @@ def build_ecsa_inputs(app):
     multiple=True,
   )
 
-  c.append(dbc.Container([
+  content.append(dbc.Container([
     # dbc.Row(dbc.Col(load_cfg_btn), className='pb-1'),
     dbc.Row(dbc.Col([storage, table])),
     dbc.Row(dbc.Col(file_uploader), className='mt-1'),
   ]))
-  c.append(html.Hr())
+  content.append(html.Hr())
 
   """Input controls."""
   btn1 = dbc.InputGroup([
@@ -136,7 +136,7 @@ def build_ecsa_inputs(app):
   ])
   btn_fit = dbc.Button('Fit', id='ecsa-fit-button', className='btn-block btn-primary', n_clicks=0)
 
-  c.append(dbc.Container([
+  content.append(dbc.Container([
     dbc.Row(dbc.Col(btn1), className='pb-1'),
     dbc.Row(dbc.Col(btn2), className='pb-1'),
     dbc.Row(dbc.Col(btn3), className='pb-1'),
@@ -167,7 +167,7 @@ def build_ecsa_inputs(app):
     ),
   )
   collapse = dbc.Collapse([html.Hr(), collapse_children], id='ecsa-fit-output', is_open=False)
-  c.append(collapse)
+  content.append(collapse)
 
 
   @app.callback(
@@ -270,8 +270,7 @@ def build_ecsa_inputs(app):
   f = open(f"{fpath}/../../assets/docs/ecsa.md", 'r')
   txt = f.read()
   info = templates.build_modal(app, 'ecsa', 'ECSA Instructions', dcc.Markdown(txt))
-  content = c  # dbc.Container([dbc.Row(_c) for _c in c], fluid=True)
-  layout = templates.build_card('ECSA: Inputs', content, info=info)
+  layout = templates.build_card('Inputs', content, info=info)
   return layout
 
 

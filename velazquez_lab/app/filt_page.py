@@ -86,14 +86,17 @@ def create_filt_page(app):
         if window_max%2 == 0:
           window_max -= 1
 
+    if window_length is None:
+      window_length = 0
     if len(file_df) > 0:
       if window_length<=5 or window_length%2==0:
         show_error = True
         fig = create_filt_fig(file_df.iloc[:,1], None)
       else:
         if trig_id == 'filt-optimize-btn':
-          window_length = None
-        filt_y = filtering.apply_filter(file_df.iloc[:,1], window_length=window_length)
+          window_length, filt_y = filtering.optimize_window(file_df.iloc[:,1], polyorder=5)
+        else:
+          filt_y = filtering.apply_filter(file_df.iloc[:,1], window_length=window_length, polyorder=5)
         output_storage = filt_y
         fig = create_filt_fig(file_df.iloc[:,1], filt_y)
     else:
@@ -119,23 +122,10 @@ def create_filt_page(app):
     info=info
   )
 
-  row = dbc.Row(
-    [
-      dbc.Col(inputs, className='col-4'),
-      dbc.Col(
-        templates.build_card('Graph', dcc.Graph(id='filt-graph')),
-        className='col-8',
-      ),
-    ],
-  )
+  row = [
+    dbc.Col(inputs, className='col-4'),
+    dbc.Col(templates.build_card('Graph', dcc.Graph(id='filt-graph')), className='col-8'),
+  ]
 
-  pg = dbc.Container(
-    [
-      html.Div('Filtering', className='section-header mb-1'),
-      row,
-      html.Hr(),
-    ],
-    className='page-content',
-    fluid=True
-  )
+  pg = templates.build_page(sections={'Filtering': row})
   return pg

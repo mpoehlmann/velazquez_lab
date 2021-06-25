@@ -90,10 +90,12 @@
 }
 .card-header  {
   border-width: 0;
+  border-radius: 0 !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: calc(2 * var(--spacing)) calc(3 * var(--spacing)) calc(2 * var(--spacing));
+  /* padding: calc(3 * var(--spacing)); */
 }
 .card-body {
   padding: calc(2 * var(--spacing));
@@ -117,7 +119,7 @@ I {
   border-style: dashed;
   border-radius: 5px;
   text-align: center;
-  margin': auto;
+  margin: auto;
 }
 
 
@@ -127,10 +129,16 @@ I {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: calc(2 * var(--spacing)) calc(3 * var(--spacing)) calc(2 * var(--spacing));
-  background-color: rgba(0, 0, 0, 0.03);
+  padding: calc(2 * var(--spacing)) 0 calc(2 * var(--spacing));
+  /* padding: calc(2 * var(--spacing)) calc(3 * var(--spacing)) calc(2 * var(--spacing)); */
+  /* padding: calc(3 * var(--spacing)); */
+  /* background-color: var(--secondary); */
+  /* color: white; */
+  /* rgba(0, 0, 0, 0.03); */
   /* background-color: var(--bs-primary); */
-  letter-spacing: 0.1rem;
+  letter-spacing: 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 500;
   text-transform: uppercase;
   text-align: center;
 }

@@ -75,7 +75,7 @@ def build_navbar(app, pages, active_page=0, subtitle=None):
     children=[
       html.Div(html.Img(src=app.get_asset_url('images/logo.png'), height='40px'), className='px-2'),
       html.Div(t, className='d-flex flex-column flex-grow-1 pl-2'),
-      html.Div(dbc.NavbarBrand(pages.loc[active_page, 'label'])),
+      html.Div(id='navbar-page-name'),
       html.Div(dropdown, className='p-1'),
     ],
     className='d-flex align-items-center p-2',
@@ -84,3 +84,13 @@ def build_navbar(app, pages, active_page=0, subtitle=None):
   )
 
   return navbar
+
+
+def build_page(sections):
+  children = []
+  for key, cols in sections.items():
+    children.append(html.Div(key, className='section-header mb-1'))
+    children.append(dbc.Row(cols))
+    children.append(html.Hr())
+  pg = dbc.Container(children, className='page-content', fluid=True)
+  return pg
