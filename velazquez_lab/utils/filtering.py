@@ -1,7 +1,6 @@
 """TODO."""
 
 import copy
-from kneed import KneeLocator
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
