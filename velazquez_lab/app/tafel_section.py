@@ -42,22 +42,26 @@ def build_tafel_figs(file_df, result_df, ecsa_val, gsa_val, fit_xmin, fit_xmax, 
 
   """Draw contour line."""
   for fig in (fig_ecsa, fig_gsa):  # FIXME: change to filled region
-    fig.add_vline(
-      x=fit_xmin, line_width=1, line_dash='dash', line_color='gray',
-      annotation_text='Fit range min ', annotation_position='top left', annotation_font_size=12, annotation_font_color='gray',
-    )
-    fig.add_vline(
-      x=fit_xmax, line_width=1, line_dash='dash', line_color='gray',
-      annotation_text=' Fit range max', annotation_position='top right', annotation_font_size=12, annotation_font_color='gray',
-    )
-    fig.add_hline(
-      y=fit_ymin, line_width=1, line_dash='dash', line_color='gray',
-      annotation_text='Fit range y min ', annotation_position='bottom left', annotation_font_size=12, annotation_font_color='gray',
-    )
-    fig.add_hline(
-      y=fit_ymax, line_width=1, line_dash='dash', line_color='gray',
-      annotation_text=' Fit range y max', annotation_position='top left', annotation_font_size=12, annotation_font_color='gray',
-    )
+    # trace = go.Scatter(x=[fit_xmin, fit_xmax, fit_xmax, fit_xmin, fit_xmin], y=[fit_ymin, fit_ymin, fit_ymax, fit_ymax, fit_ymin], mode='none', fill='tonext')
+    trace = go.Scatter(x=[fit_xmin, fit_xmax, fit_xmax, fit_xmin, fit_xmin], y=[fit_ymin, fit_ymin, fit_ymax, fit_ymax, fit_ymin], mode='lines', line=dict(width=1, color='gray', dash='dash'), name='Fit range')
+    fig.add_trace(trace)
+
+    # fig.add_vline(
+    #   x=fit_xmin, line_width=1, line_dash='dash', line_color='gray',
+    #   annotation_text='Fit range min ', annotation_position='top left', annotation_font_size=12, annotation_font_color='gray',
+    # )
+    # fig.add_vline(
+    #   x=fit_xmax, line_width=1, line_dash='dash', line_color='gray',
+    #   annotation_text=' Fit range max', annotation_position='top right', annotation_font_size=12, annotation_font_color='gray',
+    # )
+    # fig.add_hline(
+    #   y=fit_ymin, line_width=1, line_dash='dash', line_color='gray',
+    #   annotation_text='Fit range y min ', annotation_position='bottom left', annotation_font_size=12, annotation_font_color='gray',
+    # )
+    # fig.add_hline(
+    #   y=fit_ymax, line_width=1, line_dash='dash', line_color='gray',
+    #   annotation_text=' Fit range y max', annotation_position='top left', annotation_font_size=12, annotation_font_color='gray',
+    # )
 
   return fig_ecsa, fig_gsa
 
