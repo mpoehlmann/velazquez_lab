@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Enable jupyter_server_proxy
 jupyter serverextension enable --sys-prefix jupyter_server_proxy
 
