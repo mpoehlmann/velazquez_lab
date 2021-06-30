@@ -42,10 +42,11 @@ def build_app(start_page=1, theme='light', jupyter=False):
   if jupyter:
     JupyterDash.infer_jupyter_proxy_config()
     app = JupyterDash(__name__, **dash_args)
+    # app = dash.Dash(__name__, url_base_pathname='/my-app/', **dash_args)
     app.scripts.config.serve_locally = True
     app.css.config.serve_locally = True
   else:
-    dash.Dash(__name__, **dash_args)
+    app = dash.Dash(__name__, **dash_args)
 
 
   """Define pages."""

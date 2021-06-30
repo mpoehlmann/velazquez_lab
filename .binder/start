@@ -1,0 +1,8 @@
+# Enable jupyter_server_proxy
+jupyter serverextension enable --sys-prefix jupyter_server_proxy
+
+# Install the dash server extension so that bokeh launches at startup
+mv .binder/dashapp_server_extension.py ${NB_PYTHON_PREFIX}/lib/python*/site-packages/
+
+# Enable bokeh extension
+jupyter serverextension enable --sys-prefix dashapp_server_extension
