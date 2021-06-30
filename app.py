@@ -106,10 +106,12 @@ if __name__ == '__main__':
   ap.add_argument('-t', '--theme', default='light', help='Specify light or dark theme')
   args = vars(ap.parse_args())
 
-  app = build_app(theme=args['theme'], jupyter=False)
   if args['binder']:
+    JupyterDash.infer_jupyter_proxy_config()
+    app = build_app(theme=args['theme'], jupyter=True)
     app.run_server(debug=args['debug'], port=args['port'])
   else:
+    app = build_app(theme=args['theme'], jupyter=False)
     app.run_server(debug=args['debug'], host=args['host'], port=args['port'])
 
 
