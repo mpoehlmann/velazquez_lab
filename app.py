@@ -40,6 +40,7 @@ def build_app(start_page=1, theme='light', jupyter=False):
     external_stylesheets=external_stylesheets,
   )
   if jupyter:
+    JupyterDash.infer_jupyter_proxy_config()
     app = JupyterDash(__name__, **dash_args)
     app.scripts.config.serve_locally = True
     app.css.config.serve_locally = True
@@ -112,7 +113,6 @@ if __name__ == '__main__':
   args = vars(ap.parse_args())
 
   if args['binder']:
-    JupyterDash.infer_jupyter_proxy_config()
     app = build_app(theme=args['theme'], jupyter=True)
     app.run_server(debug=args['debug'], port=args['port'])
   else:
