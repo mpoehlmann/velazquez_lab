@@ -19,11 +19,14 @@ def load_data(file):
   return df
 
 
-def correct_potential(df, ph, ru=0):
-  # Fixed potential
-  potential_fixed = df['E'] + 0.210 + 0.059*ph - df['I']*(ru/1000.)
-  df.insert(1, 'E_fixed', potential_fixed)
-  return df
+# def correct_potential(df, ph, ru=0):
+#   # Fixed potential
+#   potential_fixed = df['E'] + 0.210 + 0.059*ph - df['I']*(ru/1000.)
+#   df.insert(1, 'E_fixed', potential_fixed)
+#   return df
+def correct_potential(potential, current, ph, ru=0):
+  potential_fixed = potential + 0.210 + 0.059*ph - current*(ru/1000.)
+  return potential_fixed
 
 
 def fit_tafel_slope_julius(voltages, currents, sigma=0.1, nsamples=2500, verbose=True, draw=False):
@@ -93,7 +96,7 @@ def fit_tafel_slope_linear(voltages, currents):
   fitresult, optvals = fitting.linear_fit(voltages, log_currents)
   m, b = optvals['m'], optvals['b']
   rsq = 1 - fitresult.residual.var() / np.var(log_currents)
-  return m, voltages, fitting.linear_eqn(voltages, m, b)
+  return 1000/m, voltages, fitting.linear_eqn(voltages, m, b)
 
 if __name__ == '__main__':
   import matplotlib.pyplot as plt
@@ -131,7 +134,7 @@ if __name__ == '__main__':
 
   print()
   print(f"Tafel slope (Bayesian): {jm} mV/decade")
-  print(f"Tafel slope (Linear): {1000/lm} mV/decade")
+  print(f"Tafel slope (Linear): {lm} mV/decade")
 
   fig, ax = plt.subplots()
   ax.set(xlabel="Potential (V)", ylabel=r"log$_{10}$ ( Current )")

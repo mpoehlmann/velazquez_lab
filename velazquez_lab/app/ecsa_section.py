@@ -27,7 +27,7 @@ def build_ecsa_dlc_fig(file_table_df, file_storage, contour=None):
     if row.scan_rate is None:
       file_table_df.loc[i, 'scan_rate'] = f"File {i+1}"
 
-  """Initialize figures."""
+  """Initialize figure."""
   dlc_fig = go.Figure()
   dlc_fig.update_layout(xaxis_title='<b>Potential (V)</b>', yaxis_title='<b>Current (mA)</b>', legend_title='<b>Scan rate (units)</b>')
 
@@ -178,7 +178,7 @@ def build_ecsa_inputs(app):
     Output('esca-fitresdf-storage', 'data'),
     Output('ecsa-dlc-graph', 'figure'),
     Output('ecsa-fit-graph', 'figure'),
-    Output('pol-ecsa-input', 'value'),
+    Output('tafel-ecsa-input', 'value'),
     Output('ecsa-fit-value', 'children'),
     Output('ecsa-fit-output', 'is_open'),
     Output('ecsa-download-dataframe-csv', 'data'),
@@ -212,10 +212,7 @@ def build_ecsa_inputs(app):
     download = None
     if trig_id == 'ecsa-upload':  # New file uploaded.
       if new_file_contents is not None:
-        if isinstance(new_file_names, str):  # Make sure it's a list not a string
-          new_file_names = [new_file_names]
-          new_file_contents = [new_file_contents]
-        for n, c in zip(new_file_names, new_file_contents):
+        for n, c in zip(np.atleast_1d(new_file_names), np.atleast_1d(new_file_contents)):
           file_table_df = file_table_df.append({'fname': n, 'scan_rate': None}, ignore_index=True)  # Add files to table
           file_storage[n] = c
       is_fitoutput_open = False

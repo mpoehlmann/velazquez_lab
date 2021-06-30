@@ -6,7 +6,7 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
-from velazquez_lab.app import templates, ecsa_section, gsa_section, pol_section
+from velazquez_lab.app import templates, ecsa_section, gsa_section, tafel_section
 
 
 def create_pol_page(app):
@@ -22,17 +22,17 @@ def create_pol_page(app):
   #   # dbc.Col(templates.build_card('GSA-normalized', dcc.Graph(id='gsa-graph')), className='col-4half',),
   # ]
 
-  pol_row = [
-    dbc.Col(pol_section.build_pol_inputs(app), className='col-3',),
-    dbc.Col(templates.build_card('ECSA-normalized', dcc.Graph(id='pol-ecsa-graph')), className='col-4half',),
-    dbc.Col(templates.build_card('GSA-normalized', dcc.Graph(id='pol-gsa-graph')), className='col-4half',),
+  tafel_row = [
+    dbc.Col(tafel_section.build_tafel_inputs(app), className='col-3',),
+    dbc.Col(templates.build_card('ECSA-normalized', dcc.Graph(id='tafel-ecsa-graph')), className='col-4half',),
+    dbc.Col(templates.build_card('GSA-normalized', dcc.Graph(id='tafel-gsa-graph')), className='col-4half',),
   ]
 
   pg = templates.build_page(
     sections={
       'Electrochemical Surface Area': ecsa_row,
       # 'Geometric Surface Area': gsa_row,
-      'Tafel Slope': pol_row,
+      'Tafel Slope': tafel_row,
     }
   )
 
