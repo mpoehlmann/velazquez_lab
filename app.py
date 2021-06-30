@@ -20,7 +20,7 @@ from velazquez_lab.plot import styles
 styles.set_plotly_style('light')
 
 
-def build_app(start_page=0, theme='light', jupyter=False):
+def build_app(start_page=1, theme='light', jupyter=False):
   """Setup application."""
   styles.set_plotly_style(theme)
 
@@ -61,7 +61,7 @@ def build_app(start_page=0, theme='light', jupyter=False):
 
   full_page = html.Div([
     templates.build_navbar(app, pages, start_page, subtitle='Data Analysis Toolkit'),
-    html.Div(create_page(pages.loc[start_page, 'id']), id='page-content'),
+    html.Div(create_page(pages.loc[start_page, 'id']), id='main-page'),
   ])
 
   """Index layout."""
@@ -74,15 +74,14 @@ def build_app(start_page=0, theme='light', jupyter=False):
   ])
 
   @app.callback(
-    Output("page-content", "children"),
-    Output("navbar-page-name", "children"),
+    Output('main-page', 'children'),
+    Output('navbar-page-name', 'children'),
     *(Input(pid, 'n_clicks_timestamp') for pid in pages['id']),
     # prevent_initial_call=True,
   )
   def load_page(*inputs):
     ctx = dash.callback_context
     button_id = ctx.triggered[0]['prop_id'].split('.')[0] if ctx.triggered else None
-    print(button_id)
     if button_id is None:
       button_id = pages.loc[start_page, 'id']
     return create_page(button_id)

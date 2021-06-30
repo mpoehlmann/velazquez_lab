@@ -16,11 +16,11 @@ def create_pol_page(app):
     dbc.Col(templates.build_card('Fit results', dcc.Graph(id='ecsa-fit-graph')), className='col-4half',),
   ]
 
-  gsa_row = [
-    dbc.Col(gsa_section.build_gsa_inputs(app), className='col-3',),
-    dbc.Col(templates.build_card('Graph', dcc.Graph(id='gsa-graph')), className='col-4half',),
-    # dbc.Col(templates.build_card('GSA-normalized', dcc.Graph(id='gsa-graph')), className='col-4half',),
-  ]
+  # gsa_row = [
+  #   dbc.Col(gsa_section.build_gsa_inputs(app), className='col-3',),
+  #   dbc.Col(templates.build_card('Graph', dcc.Graph(id='gsa-graph')), className='col-4half',),
+  #   # dbc.Col(templates.build_card('GSA-normalized', dcc.Graph(id='gsa-graph')), className='col-4half',),
+  # ]
 
   pol_row = [
     dbc.Col(pol_section.build_pol_inputs(app), className='col-3',),
@@ -30,9 +30,9 @@ def create_pol_page(app):
 
   pg = templates.build_page(
     sections={
-      'ECSA calculation': ecsa_row,
-      'GSA calculation': gsa_row,
-      'Tafel slope calculation': pol_row,
+      'Electrochemical Surface Area': ecsa_row,
+      # 'Geometric Surface Area': gsa_row,
+      'Tafel Slope': pol_row,
     }
   )
 

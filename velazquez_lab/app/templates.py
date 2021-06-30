@@ -64,7 +64,7 @@ def build_navbar(app, pages, active_page=0, subtitle=None):
     # className='fas fa-bars pl-1'
     className='site-menu',
     right=True,
-    color='dark',
+    # color='dark',
   )
 
   t = [ dbc.NavbarBrand(app.title, className='m-0 p-0', style={'textTransform': 'uppercase', 'fontSize': '20px'}) ]
@@ -91,6 +91,6 @@ def build_page(sections):
   for key, cols in sections.items():
     children.append(html.Div(key, className='section-header mb-1'))
     children.append(dbc.Row(cols))
-    children.append(html.Hr())
+    children.append(html.Hr(className='section-hr'))
   pg = dbc.Container(children, className='page-content', fluid=True)
   return pg
