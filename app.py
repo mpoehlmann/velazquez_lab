@@ -97,11 +97,18 @@ if __name__ == '__main__':
   """
   import argparse
   ap = argparse.ArgumentParser()
+  ap.add_argument('-b', '--binder', default=False, action='store_true', help='Enable running from Binder')
+  ap.add_argument('-d', '--debug', default=False, action='store_true', help='Control application debugging')
+  ap.add_argument('--host', default='127.0.0.1', help='Specify host')
+  ap.add_argument('-p', '--port', default=8050, type=int, help='Specify application port')
   ap.add_argument('-t', '--theme', default='light', help='Specify light or dark theme')
   args = vars(ap.parse_args())
 
-  app = build_app(**args)
-  app.run_server(debug=True, host='127.0.0.1')
+  app = build_app(theme=args['theme'], jupyter=False)
+  if args['binder']:
+    app.run_server(debug=args['debug'], port=args['port'])
+  else:
+    app.run_server(debug=args['debug'], host=args['host'], port=args['port'])
 
 
 
