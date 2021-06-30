@@ -1,6 +1,6 @@
 # Velázquez Lab Code
 
-https://mybinder.org/v2/gh/mpoehlmann/velazquez_lab/main?urlpath=apps%2Fapp.ipynb
+https://mybinder.org/v2/gh/mpoehlmann/velazquez_lab/main?urlpath=%2Fapps%2Fapp.ipynb
 
 
 <!-- [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mpoehlmann/velazquez_lab/main?filepath=app.ipynb) -->
