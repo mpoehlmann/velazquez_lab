@@ -95,6 +95,8 @@ if __name__ == '__main__':
     python app.py
     python app.py -t dark
   """
+  print('...running application')
+
   import argparse
   ap = argparse.ArgumentParser()
   ap.add_argument('-b', '--binder', default=False, action='store_true', help='Enable running from Binder')
