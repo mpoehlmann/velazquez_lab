@@ -229,7 +229,7 @@ def build_tafel_inputs(app):
 
   """Layout."""
   fpath = os.path.dirname(os.path.realpath(__file__))
-  f = open(f"{fpath}/../../assets/docs/tafel.md", 'r')
+  f = open(f"{fpath}/../../docs/tafel.md", 'r')
   txt = f.read()
   info = templates.build_modal(app, 'tafel', 'Tafel Slope Instructions', dcc.Markdown(txt))
   layout = templates.build_card('Inputs', content, info=info)

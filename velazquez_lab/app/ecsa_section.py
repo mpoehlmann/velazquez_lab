@@ -264,7 +264,7 @@ def build_ecsa_inputs(app):
 
   """Layout."""
   fpath = os.path.dirname(os.path.realpath(__file__))
-  f = open(f"{fpath}/../../assets/docs/ecsa.md", 'r')
+  f = open(f"{fpath}/../../docs/ecsa.md", 'r')
   txt = f.read()
   info = templates.build_modal(app, 'ecsa', 'ECSA Instructions', dcc.Markdown(txt))
   layout = templates.build_card('Inputs', content, info=info)

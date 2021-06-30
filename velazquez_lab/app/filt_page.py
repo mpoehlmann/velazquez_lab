@@ -105,7 +105,7 @@ def create_filt_page(app):
 
   """Layout."""
   fpath = os.path.dirname(os.path.realpath(__file__))
-  f = open(f"{fpath}/../../assets/docs/filtering.md", 'r')
+  f = open(f"{fpath}/../../docs/filtering.md", 'r')
   txt = f.read()
   info = templates.build_modal(app, 'filt', 'Filtering Instructions', dcc.Markdown(txt))
   inputs = templates.build_card(
