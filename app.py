@@ -39,7 +39,12 @@ def build_app(start_page=1, theme='light', jupyter=False):
     title='Velázquez Lab',
     external_stylesheets=external_stylesheets,
   )
-  app = JupyterDash(__name__, **dash_args) if jupyter else dash.Dash(__name__, **dash_args)
+  if jupyter:
+    app = JupyterDash(__name__, **dash_args)
+    app.scripts.config.serve_locally = True
+    app.css.config.serve_locally = True
+  else:
+    dash.Dash(__name__, **dash_args)
 
 
   """Define pages."""
