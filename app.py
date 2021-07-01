@@ -17,9 +17,6 @@ from velazquez_lab.app.filt_page import create_filt_page
 from velazquez_lab.plot import styles
 
 
-styles.set_plotly_style('light')
-
-
 def build_app(start_page=1, theme='light', jupyter=False):
   """Setup application."""
   styles.set_plotly_style(theme)
@@ -39,15 +36,7 @@ def build_app(start_page=1, theme='light', jupyter=False):
     title='Velázquez Lab',
     external_stylesheets=external_stylesheets,
   )
-  if jupyter:
-    # JupyterDash.infer_jupyter_proxy_config()
-    app = JupyterDash(__name__, **dash_args)
-    # app = dash.Dash(__name__, **dash_args)  # url_base_pathname='/my-app/',
-    # app.scripts.config.serve_locally = True
-    # app.css.config.serve_locally = True
-  else:
-    app = dash.Dash(__name__, **dash_args)
-
+  app = JupyterDash(__name__, **dash_args) if jupyter else dash.Dash(__name__, **dash_args)
 
   """Define pages."""
   pages = pd.DataFrame([
@@ -106,19 +95,14 @@ if __name__ == '__main__':
 
   import argparse
   ap = argparse.ArgumentParser()
-  ap.add_argument('-b', '--binder', default=False, action='store_true', help='Enable running from Binder')
   ap.add_argument('-d', '--debug', default=False, action='store_true', help='Control application debugging')
   ap.add_argument('--host', default='127.0.0.1', help='Specify host')
   ap.add_argument('-p', '--port', default=8050, type=int, help='Specify application port')
   ap.add_argument('-t', '--theme', default='light', help='Specify light or dark theme')
   args = vars(ap.parse_args())
 
-  if args['binder']:
-    app = build_app(theme=args['theme'], jupyter=True)
-    app.run_server(debug=args['debug'], port=args['port'])
-  else:
-    app = build_app(theme=args['theme'], jupyter=False)
-    app.run_server(debug=args['debug'], host=args['host'], port=args['port'])
+  app = build_app(theme=args['theme'], jupyter=False)
+  app.run_server(debug=args['debug'], host=args['host'], port=args['port'])
 
 
 
