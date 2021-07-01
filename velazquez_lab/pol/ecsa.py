@@ -1,4 +1,4 @@
-"""Calculate electrochemical surface area."""
+"""Electrochemical surface area calculator."""
 
 import numpy as np
 import pandas as pd
@@ -6,15 +6,29 @@ import pandas as pd
 from velazquez_lab.utils import fitting
 
 
-def load_data(files, scan_rates, cycle=2, sep='\t', header=(0), **kwargs):
-  """Load data files into DataFrames."""
-  _files = np.atleast_1d(files)
-  _scan_rates = np.atleast_1d(scan_rates)
+def load_data(files, scan_rates, cycle=2, header=(0), **kwargs):
+  """Loads data file contentss into a dictionary of pd.DataFrames.
+  The data file's first column contains potential in volts.
+  The second column contains the current in mA.
+  The third column (optionally) contains the cycle index.
 
+  Args:
+    files (str, array_like): Data files to load.
+    scan_rates (int, array_like): Scan rate in UNITS for the corresponding data file.
+    cycle (int, None): Cycle index (3rd column in data file) to select.
+      All data in the file is used if this is None.
+    header (array_like, None): Header lines, passed to pd.read_table.
+    **kwargs: Passed to pd.read_table
+
+  Returns:
+    dict: dictionary of DataFrames with data file content.
+      The dictionary key is the scan rate.
+  """
   dfs = dict()
-  for file, rate in zip(files, scan_rates):
-    df = pd.read_table(file, sep=sep, header=header, **kwargs)
-    df = (df[df.iloc[:,2]==cycle])
+  for file, rate in zip(np.atleast_1d(files), np.atleast_1d(scan_rates)):
+    df = pd.read_table(file, header=header, **kwargs)
+    if cycle is not None:
+      df = (df[df.iloc[:,2]==cycle])
     dfs[rate] = df
   return dfs
 
