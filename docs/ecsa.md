@@ -17,3 +17,7 @@ The first column is the potential (Ewe) in V.
 The second column is the current (I) in mA.
 The third column is the cycle number.
 The first row is ignored as it contains header information.
+
+
+# Overview
+The potentials and currents for the selected cycle are plotted for all scan rates.

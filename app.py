@@ -89,10 +89,9 @@ if __name__ == '__main__':
   """Run application.
   To run:
     python app.py
+    python app.py -d
     python app.py -t dark
   """
-  print('...running application')
-
   import argparse
   ap = argparse.ArgumentParser()
   ap.add_argument('-d', '--debug', default=False, action='store_true', help='Control application debugging')

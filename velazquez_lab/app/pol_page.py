@@ -10,29 +10,14 @@ from velazquez_lab.app import templates, ecsa_section, gsa_section, tafel_sectio
 
 
 def create_pol_page(app):
-  ecsa_row = [
-    dbc.Col(ecsa_section.build_ecsa_inputs(app), className='col-3'),
-    dbc.Col(templates.build_card('Double-layer capacitance', dcc.Graph(id='ecsa-dlc-graph')), className='col-4half',),
-    dbc.Col(templates.build_card('Fit results', dcc.Graph(id='ecsa-fit-graph')), className='col-4half',),
-  ]
-
-  # gsa_row = [
-  #   dbc.Col(gsa_section.build_gsa_inputs(app), className='col-3',),
-  #   dbc.Col(templates.build_card('Graph', dcc.Graph(id='gsa-graph')), className='col-4half',),
-  #   # dbc.Col(templates.build_card('GSA-normalized', dcc.Graph(id='gsa-graph')), className='col-4half',),
-  # ]
-
-  tafel_row = [
-    dbc.Col(tafel_section.build_tafel_inputs(app), className='col-3',),
-    dbc.Col(templates.build_card('ECSA-normalized', dcc.Graph(id='tafel-ecsa-graph')), className='col-4half',),
-    dbc.Col(templates.build_card('GSA-normalized', dcc.Graph(id='tafel-gsa-graph')), className='col-4half',),
-  ]
+  ecsa_row = ecsa_section.build_ecsa_row(app)
+  tafel_row = tafel_section.build_tafel_row(app)
 
   pg = templates.build_page(
     sections={
       'Electrochemical Surface Area': ecsa_row,
       # 'Geometric Surface Area': gsa_row,
-      'Tafel Slope': tafel_row,
+      'Polarization Curves & Tafel Slope': tafel_row,
     }
   )
 

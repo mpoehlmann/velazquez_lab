@@ -21,9 +21,10 @@ from velazquez_lab.plot import styles
 
 def build_tafel_figs(file_df, result_df, ecsa_val, gsa_val, fit_xmin, fit_xmax, fit_ymin, fit_ymax):
   """Initialize figures."""
-  fig_ecsa = go.Figure()
+  fig_raw, fig_corr, fig_ecsa, fig_gsa = ( go.Figure() for _ in range(4) )
+  fig_raw.update_layout(xaxis_title='<b>Fixed Potential (V)</b>', yaxis_title='<b>Current (mA)</b>', showlegend=True)
+  fig_corr.update_layout(xaxis_title='<b>Fixed Potential (V)</b>', yaxis_title='<b>Current (mA)</b>', showlegend=True)
   fig_ecsa.update_layout(xaxis_title='<b>Fixed Potential (V)</b>', yaxis_title='<b>log<sub>10</sub>( Current / ECSA )</b>', showlegend=True)
-  fig_gsa = go.Figure()
   fig_gsa.update_layout(xaxis_title='<b>Fixed Potential (V)</b>', yaxis_title='<b>log<sub>10</sub>( Current / GSA )</b>', showlegend=True)
 
   """Draw traces."""
@@ -63,7 +64,7 @@ def build_tafel_figs(file_df, result_df, ecsa_val, gsa_val, fit_xmin, fit_xmax, 
     #   annotation_text=' Fit range y max', annotation_position='top left', annotation_font_size=12, annotation_font_color='gray',
     # )
 
-  return fig_ecsa, fig_gsa
+  return fig_raw, fig_corr, fig_ecsa, fig_gsa
 
 def build_tafel_inputs(app):
   content = list()
@@ -132,6 +133,7 @@ def build_tafel_inputs(app):
     dbc.Row(dbc.Col(btn2), className='pb-1'),
     dbc.Row(dbc.Col(btn3), className='pb-1'),
     dbc.Row(dbc.Col(btn4), className='pb-1'),
+    dbc.Row(dbc.Col(html.Hr())),
     dbc.Row(dbc.Col(btn5a), className='pb-1'),
     dbc.Row(dbc.Col(btn5b), className='pb-1'),
     dbc.Row(dbc.Col(btn6), className='pb-1'),
@@ -161,6 +163,8 @@ def build_tafel_inputs(app):
     Output('tafel-range-xmax-input', 'value'),
     Output('tafel-range-ymin-input', 'value'),
     Output('tafel-range-ymax-input', 'value'),
+    Output('pol-raw-graph', 'figure'),
+    Output('pol-corr-graph', 'figure'),
     Output('tafel-ecsa-graph', 'figure'),
     Output('tafel-gsa-graph', 'figure'),
     Output('tafel-result-storage', 'data'),
@@ -224,8 +228,8 @@ def build_tafel_inputs(app):
     """Prepare return values."""
     file_storage = file_df.to_dict(orient='records')
     result_storage = result_df.to_dict(orient='records')
-    fig_ecsa, fig_gsa = build_tafel_figs(file_df, result_df, ecsa_val, gsa_val, fit_xmin, fit_xmax, fit_ymin, fit_ymax)
-    return file_name, file_storage, fit_xmin, fit_xmax, fit_ymin, fit_ymax, fig_ecsa, fig_gsa, result_storage, tafel_slope_val['ecsa'], tafel_slope_val['gsa']
+    fig_raw, fig_corr, fig_ecsa, fig_gsa = build_tafel_figs(file_df, result_df, ecsa_val, gsa_val, fit_xmin, fit_xmax, fit_ymin, fit_ymax)
+    return file_name, file_storage, fit_xmin, fit_xmax, fit_ymin, fit_ymax, fig_raw, fig_corr, fig_ecsa, fig_gsa, result_storage, tafel_slope_val['ecsa'], tafel_slope_val['gsa']
 
   """Layout."""
   fpath = os.path.dirname(os.path.realpath(__file__))
@@ -234,3 +238,26 @@ def build_tafel_inputs(app):
   info = templates.build_modal(app, 'tafel', 'Tafel Slope Instructions', dcc.Markdown(txt))
   layout = templates.build_card('Inputs', content, info=info)
   return layout
+
+
+def build_tafel_row(app):
+  row = [
+    dbc.Col(build_tafel_inputs(app), className='col-3',),
+    dbc.Col(
+      [
+        dbc.Row(dbc.Col(templates.build_card('Data', dcc.Graph(id='pol-raw-graph')))),
+        dbc.Row(dbc.Col(templates.build_card('ECSA-normalized polarization curve', dcc.Graph(id='pol-ecsa-graph')))),
+        dbc.Row(dbc.Col(templates.build_card('TODO', dcc.Graph(id='tafel-ecsa-graph')))),
+          ],
+          className='col-4half',
+        ),
+        dbc.Col(
+          [
+            dbc.Row(dbc.Col(templates.build_card('Corrected data', dcc.Graph(id='pol-corr-graph')))),
+            dbc.Row(dbc.Col(templates.build_card('GSA-normalized polarization curve', dcc.Graph(id='pol-gsa-graph')))),
+            dbc.Row(dbc.Col(templates.build_card('TODO', dcc.Graph(id='tafel-gsa-graph')))),
+      ],
+      className='col-4half',
+    ),
+  ]
+  return row

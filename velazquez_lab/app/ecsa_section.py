@@ -271,3 +271,10 @@ def build_ecsa_inputs(app):
   return layout
 
 
+def build_ecsa_row(app):
+  row = [
+    dbc.Col(build_ecsa_inputs(app), className='col-3'),
+    dbc.Col(templates.build_card('Double-layer capacitance', dcc.Graph(id='ecsa-dlc-graph')), className='col-4half',),
+    dbc.Col(templates.build_card('Fit results', dcc.Graph(id='ecsa-fit-graph')), className='col-4half',),
+  ]
+  return row
