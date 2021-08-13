@@ -15,8 +15,7 @@ import pandas as pd
 import plotly.graph_objs as go
 
 from velazquez_lab.app import templates
-from velazquez_lab.plot import styles
-from velazquez_lab.utils import filtering
+from velazquez_lab.utils import styles, filtering
 
 
 def create_filt_fig(raw=None, filt=None):
@@ -111,21 +110,27 @@ def create_filt_page(app):
   inputs = templates.build_card(
     'Inputs',
     dbc.Container([
-      dbc.Row(dbc.Col(file_uploader), className='pb-1'),
-      dbc.Row(dbc.Col(id='filt-file-name'), className='pb-1'),
-      dbc.Row(dbc.Col(btn1), className='pb-1'),
-      dbc.Row(dbc.Col(collapse), className='pb-1'),
-      dbc.Row(dbc.Col(btn2), className='pb-1'),
+      html.Div(file_uploader, className='pb-1'),
+      html.Div(id='filt-file-name', className='pb-1'),
+      html.Div(btn1, className='pb-1'),
+      html.Div(collapse, className='pb-1'),
+      html.Div(btn2, className='pb-1'),
       file_storage,
       output_storage,
     ]),
     info=info
   )
 
-  row = [
-    dbc.Col(inputs, className='col-4'),
-    dbc.Col(templates.build_card('Graph', dcc.Graph(id='filt-graph')), className='col-8'),
-  ]
-
-  pg = templates.build_page(sections={'Filtering': row})
+  pg = dbc.Container(
+    [
+      html.Div('Filtering', className='section-header mb-1'),
+      dbc.Row([
+        dbc.Col(inputs, className='col-4'),
+        dbc.Col(templates.build_card('Graph', dcc.Graph(id='filt-graph')), className='col-8'),
+      ]),
+      html.Hr(className='section-hr'),
+    ],
+    className='page-content',
+    fluid=True
+  )
   return pg

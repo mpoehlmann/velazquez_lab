@@ -3,15 +3,16 @@
 import base64
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
-# import dash_core_components as dcc
+import dash_core_components as dcc
 import dash_html_components as html
+from io import StringIO
 
 
 def parse_file(contents):
   # print(contents)
   content_type, content_string = contents.split(',')
   decoded = base64.b64decode(content_string)
-  return decoded.decode('utf-8')
+  return StringIO(decoded.decode('utf-8'))
 
 
 def build_modal(app, name, title, content):
@@ -86,11 +87,33 @@ def build_navbar(app, pages, active_page=0, subtitle=None):
   return navbar
 
 
-def build_page(sections):
-  children = []
-  for key, cols in sections.items():
-    children.append(html.Div(key, className='section-header mb-1'))
-    children.append(dbc.Row(cols))
-    children.append(html.Hr(className='section-hr'))
-  pg = dbc.Container(children, className='page-content', fluid=True)
-  return pg
+# def build_range_selector(name, rs_args=dict()):
+#   """Create a range selector control.
+#   Args:
+#     name: The id of the range selector.
+#     rs_args: A dictionary of arguments to be passed to the RangeSlider constructor.
+#   """
+#   _rs_args = dict(min=0, max=30, value=[10, 15])
+#   _rs_args.update(rs_args)
+
+#   left = dcc.Input(
+#     id=f'{name}-min',
+#     value=_rs_args['min'],
+#   )
+#   center = dcc.RangeSlider(
+#     id=f'{name}-slider',
+#     allowCross=False,
+#     **_rs_args,
+#   )
+#   right = dcc.Input(
+#     id=f'{name}-max',
+#     value=_rs_args['max'],
+#   )
+
+#   obj = dbc.Row([
+#     dbc.Col(left, className='col-3'),
+#     dbc.Col(center, className='col-6'),
+#     dbc.Col(right, className='col-3'),
+#   ])
+
+#   return obj

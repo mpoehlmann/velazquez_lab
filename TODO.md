@@ -1,7 +1,13 @@
 # TODO
 - Legend outline
 - ECSA file output, clean ecsa.py
-
+- tafel app
+  - tafel file download
+  - clean res_vals
+  - show plots before correction
+- update tafel_slope.py user interface
+- fix required values in inputs
+- add multiple parsers
 
 
 
@@ -27,3 +33,7 @@ def func(n_clicks):
     return dcc.send_data_frame(df.to_csv, "mydf.csv")
     return dcc.send_file("./dash_docs/assets/images/gallery/dash-community-components.png")
 ```
+
+
+
+https://github.com/binder-examples/bokeh

@@ -20,6 +20,7 @@ plotly
 pymc3
 scipy
 seaborn
+shapely
 theano-pymc
 tqdm
 uncertainties
