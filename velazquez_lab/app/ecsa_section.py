@@ -240,13 +240,14 @@ def build_ecsa_row(app):
 
     elif trig_id == 'ecsa-download-button':
       download = dcc.send_data_frame(fitres_df.to_csv, 'ecsa_fit_results.csv', index=False)
-      try:
-        from google.colab import files
-        with open('ecsa_fit_results.csv', 'w') as f:
-          f.write(fitres_df.to_csv(index=False))
-        files.download('ecsa_fit_results.csv')
-      except:
-        pass
+      fitres_df.to_csv('ecsa_fit_results.csv', index=False)
+      # try:
+      #   from google.colab import files
+      #   with open('ecsa_fit_results.csv', 'w') as f:
+      #     f.write(fitres_df.to_csv(index=False))
+      #   files.download('ecsa_fit_results.csv')
+      # except:
+      #   pass
 
     """Create return values."""
     outputs = tuple([
