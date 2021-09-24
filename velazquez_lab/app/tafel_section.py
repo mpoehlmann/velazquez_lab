@@ -10,6 +10,7 @@ from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
+from itsdangerous import exc
 import numpy as np
 import os
 import pandas as pd
@@ -275,7 +276,14 @@ def build_tafel_row(app):
       output_df.insert(len(output_df.columns), 'tafel_fit_e', pd.Series(result_storage['e']))
       output_df.insert(len(output_df.columns), 'tafel_fit_logi', pd.Series(result_storage['log_i']))
       download = dcc.send_data_frame(output_df.to_csv, 'tafel_fit_results.csv')
-      output_df.to_clipboard(index=False)
+      # output_df.to_clipboard(index=False)
+      # print(output_df)
+      try:
+        from google.colab import files
+        output_df.to_csv('tafel_fit_results.csv')
+        files.download('tafel_fit_results.csv')
+      except:
+        pass
 
     """Prepare return values."""
     fig_raw, fig_corr, fig_tafel = build_tafel_figs(file_df, result_storage, sa_val, sa_type, log_i_range=[log_i_min, log_i_max], e_range=[e_min, e_max])
