@@ -280,7 +280,8 @@ def build_tafel_row(app):
       # print(output_df)
       try:
         from google.colab import files
-        output_df.to_csv('tafel_fit_results.csv')
+        with open('tafel_fit_results.csv', 'w') as f:
+          f.write(output_df.to_csv(index=False))
         files.download('tafel_fit_results.csv')
       except:
         pass

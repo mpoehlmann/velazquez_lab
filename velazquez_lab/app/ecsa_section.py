@@ -242,7 +242,8 @@ def build_ecsa_row(app):
       download = dcc.send_data_frame(fitres_df.to_csv, 'ecsa_fit_results.csv', index=False)
       try:
         from google.colab import files
-        output_df.to_csv('ecsa_fit_results.csv')
+        with open('ecsa_fit_results.csv', 'w') as f:
+          f.write(fitres_df.to_csv(index=False))
         files.download('ecsa_fit_results.csv')
       except:
         pass
