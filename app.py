@@ -20,7 +20,7 @@ from velazquez_lab.app.linfit_page import create_linfit_page
 from velazquez_lab.utils import styles
 
 
-def build_app(start_page=1, theme='light', jupyter=False):
+def build_app(start_page=2, theme='light', jupyter=False):
   """Setup application."""
   styles.set_plotly_style(theme)
 

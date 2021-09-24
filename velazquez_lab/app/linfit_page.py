@@ -93,7 +93,7 @@ def create_linfit_page(app):
       {'name': 'y errors', 'id': 'y_err', 'type': 'numeric',},
     ],
     data=[],
-    # style_table={'overflowX': 'scroll'},
+    style_table={'overflowX': 'scroll'},
     # style_cell={'whiteSpace': 'normal', 'height': 'auto'},
     # tooltip_duration=None,
     # style_cell={
