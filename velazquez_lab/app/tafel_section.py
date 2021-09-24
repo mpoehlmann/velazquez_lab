@@ -269,6 +269,13 @@ def build_tafel_row(app):
         raise ValueError(f"Fit method '{fitmethod}' not implemented.")
       is_fitoutput_open = True
 
+      output_df = file_df.copy(deep=True)
+      output_df.insert(len(output_df.columns), 'tafel_slope', pd.Series([result_storage['tafel_slope']]))
+      output_df.insert(len(output_df.columns), 'rsq', pd.Series([result_storage['rsq']]))
+      output_df.insert(len(output_df.columns), 'tafel_fit_e', pd.Series(result_storage['e']))
+      output_df.insert(len(output_df.columns), 'tafel_fit_logi', pd.Series(result_storage['log_i']))
+      output_df.to_csv('/content/tafel_fit_results.csv', index=False)
+
     if trig_id == 'tafel-download-btn':
       output_df = file_df.copy(deep=True)
       output_df.insert(len(output_df.columns), 'tafel_slope', pd.Series([result_storage['tafel_slope']]))
@@ -276,7 +283,6 @@ def build_tafel_row(app):
       output_df.insert(len(output_df.columns), 'tafel_fit_e', pd.Series(result_storage['e']))
       output_df.insert(len(output_df.columns), 'tafel_fit_logi', pd.Series(result_storage['log_i']))
       download = dcc.send_data_frame(output_df.to_csv, 'tafel_fit_results.csv')
-      output_df.to_csv('tafel_fit_results.csv', index=False)
       # try:
       #   from google.colab import files
       #   with open('tafel_fit_results.csv', 'w') as f:

@@ -237,10 +237,10 @@ def build_ecsa_row(app):
       ecsa_val, fitres_df = ecsa.calculate_ecsa(e, i, s, contour=contour, specific_cap=specific_cap, blank_cap=blank_cap)
       esca_val_text = f"ECSA = {ecsa_val:.4g} cm2"
       is_fitoutput_open = True
+      fitres_df.to_csv('/content/ecsa_fit_results.csv', index=False)
 
     elif trig_id == 'ecsa-download-button':
       download = dcc.send_data_frame(fitres_df.to_csv, 'ecsa_fit_results.csv', index=False)
-      fitres_df.to_csv('ecsa_fit_results.csv', index=False)
       # try:
       #   from google.colab import files
       #   with open('ecsa_fit_results.csv', 'w') as f:
