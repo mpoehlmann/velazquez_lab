@@ -240,6 +240,7 @@ def build_ecsa_row(app):
 
     elif trig_id == 'ecsa-download-button':
       download = dcc.send_data_frame(fitres_df.to_csv, 'ecsa_fit_results.csv', index=False)
+      fitres_df.to_clipboard(index=False)
 
     """Create return values."""
     outputs = tuple([
