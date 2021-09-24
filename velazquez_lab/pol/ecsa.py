@@ -13,7 +13,7 @@ import pandas as pd
 import velazquez_lab.utils.linear_fitting as ft
 
 
-def load_data(files, cycle=None, header=(0), **kwargs):
+def load_ecsa_data(files, cycle=None, header=(0), **kwargs):
   """Loads data file contents into lists of potentials and currents.
   Args:
     files (str, StringIO, array_like): Data files to load.
@@ -61,10 +61,12 @@ def calculate_ecsa(potentials, currents, scan_rates, contour, specific_cap=1, bl
 
   """Fit contours."""
   for i, key in enumerate(('low', 'high')):
-    fitres, vals = ft.linear_fit(df['scan_rate'], df[f'I_{key}'])
-    df.insert(len(df.columns), f'slope_{key}', pd.Series(vals['m']))
-    df.insert(len(df.columns), f'intercept_{key}', pd.Series(vals['b']))
-    df.insert(len(df.columns), f'rsq_{key}', pd.Series(1-fitres.residual.var()/np.var(df[f'I_{key}'])))
+    m_fit, b_fit, redchi = ft.linear_fit(df['scan_rate'], df[f'I_{key}'])
+    m_fit = m_fit.n
+    b_fit = b_fit.n
+    df.insert(len(df.columns), f'slope_{key}', pd.Series(m_fit))
+    df.insert(len(df.columns), f'intercept_{key}', pd.Series(b_fit))
+    df.insert(len(df.columns), f'rsq_{key}', pd.Series(redchi))
 
   avg_slope = 0.5 * (np.abs(df.loc[0, 'slope_low'])+np.abs(df.loc[0, 'slope_high']))  # Units are mA*s/mV=F
   ecsa_val = (avg_slope-blank_cap) / specific_cap
@@ -95,7 +97,7 @@ if __name__ == '__main__':
   args = parse_args()
 
   """Load input data files."""
-  potentials, currents = load_data(args['files'], cycle=args['cycle'])
+  potentials, currents = load_ecsa_data(args['files'], cycle=args['cycle'])
 
   """Calculate ECSA."""
   ecsa_val, df = calculate_ecsa(potentials, currents, scan_rates=args['scanrates'], contour=args['potential'], specific_cap=args['specific'], blank_cap=args['blank'])

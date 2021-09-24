@@ -9,13 +9,12 @@ with open('README.md') as f:
 
 setup(
   name='velazquez_lab',
-  version='1.0.0',
+  version='1.0.1',
   description=('Analysis code for the Velazquez Lab.'),
   long_description=readme,
   author='Michael Poehlmann',
   author_email='poehlmann@ucdavis.edu',
   url='https://github.com/mpoehlmann/velazquez_lab',
-  packages=find_packages(exclude=['assets','data','docs','scripts']),
+  packages=find_packages(exclude=['assets', 'data', 'docs', 'scripts', 'notebooks']),
   zip_safe=False,
 )
-

@@ -15,6 +15,7 @@ import pandas as pd
 import plotly.graph_objs as go
 
 from velazquez_lab.app import templates
+from velazquez_lab.utils.file_reading import parse_dash_file
 from velazquez_lab.utils import styles, filtering
 
 
@@ -23,10 +24,10 @@ def create_filt_fig(raw=None, filt=None):
   fig.update_layout(xaxis_title='<b>Samples</b>', yaxis_title='<b>Title Goes Here</b>')
 
   if raw is not None:
-    tr = go.Scatter(y=raw, mode='lines', line_color=styles.colors[0], name=f"<b>Raw</b>")
+    tr = go.Scatter(y=raw, mode='lines', line_color=styles.COLORS[0], name=f"<b>Raw</b>")
     fig.add_trace(tr)
   if filt is not None:
-    tr = go.Scatter(y=filt, mode='lines', line_color=styles.colors[1], name=f"<b>Filtered</b>")
+    tr = go.Scatter(y=filt, mode='lines', line_color=styles.COLORS[1], name=f"<b>Filtered</b>")
     fig.add_trace(tr)
   return fig
 
@@ -79,7 +80,7 @@ def create_filt_page(app):
     if trig_id == 'filt-upload':
       if new_file_content is not None:
         file_name = new_file_name
-        f = StringIO(templates.parse_file(new_file_content))
+        f = StringIO(parse_dash_file(new_file_content))
         file_df = pd.read_table(f, sep=',', header=None)
         window_max = len(file_df)
         if window_max%2 == 0:

@@ -16,6 +16,7 @@ import pandas as pd
 import plotly.graph_objs as go
 
 from velazquez_lab.app import templates
+from velazquez_lab.utils.file_reading import parse_dash_file
 from velazquez_lab.pol import ecsa
 from velazquez_lab.utils import styles
 import velazquez_lab.utils.linear_fitting as ft
@@ -34,7 +35,7 @@ def build_ecsa_dlc_fig(file_storage, contour=None):
   """Add datasets."""
   if len(file_storage) > 0:
     for i, file in enumerate(file_storage.values()):
-      trace = go.Scatter(x=file['potential'], y=file['current'], mode='lines', line_color=styles.colors[i], name=f"<b>{file['scan_rate']}</b>")
+      trace = go.Scatter(x=file['potential'], y=file['current'], mode='lines', line_color=styles.COLORS[i], name=f"<b>{file['scan_rate']}</b>")
       dlc_fig.add_trace(trace)
 
   """Draw contour line."""
@@ -54,11 +55,11 @@ def build_ecsa_fit_fig(fitres_df):
     return fit_fig
 
   for i, key in enumerate(('low', 'high')):
-    fit_fig.add_trace( go.Scatter(x=fitres_df['scan_rate'], y=fitres_df[f'I_{key}'], mode='markers', marker=dict(color=styles.colors[i], size=12, symbol='square')) )
+    fit_fig.add_trace( go.Scatter(x=fitres_df['scan_rate'], y=fitres_df[f'I_{key}'], mode='markers', marker=dict(color=styles.COLORS[i], size=12, symbol='square')) )
 
     x = fitres_df['scan_rate']
     y = ft.linear_eqn(fitres_df['scan_rate'], fitres_df.loc[0, f'slope_{key}'], fitres_df.loc[0, f'intercept_{key}'])
-    fit_fig.add_trace( go.Scatter(x=x, y=y, mode='lines', line=dict(color=styles.colors[i], dash='dash')) )
+    fit_fig.add_trace( go.Scatter(x=x, y=y, mode='lines', line=dict(color=styles.COLORS[i], dash='dash')) )
 
     aloc = {'x': 0.02, 'y': 0.02} if key=='low' else {'x': 0.02, 'y': 0.98}
     fit_fig.add_annotation(
@@ -205,7 +206,7 @@ def build_ecsa_row(app):
     if trig_id == 'ecsa-upload':  # New file uploaded.
       if new_file_contents is not None:
         for n, c in zip(np.atleast_1d(new_file_names), np.atleast_1d(new_file_contents)):
-          e, i = ecsa.load_data(templates.parse_file(c), cycle=2)
+          e, i = ecsa.load_ecsa_data(parse_dash_file(c), cycle=2)
           file_storage[n] = {'scan_rate': None, 'potential': e[0], 'current': i[0]}
       is_fitoutput_open = False
       fitres_df = pd.DataFrame()

@@ -20,6 +20,7 @@ import plotly.graph_objs as go
 from velazquez_lab.app import templates
 from velazquez_lab.pol import tafel_slope
 from velazquez_lab.utils import styles
+from velazquez_lab.utils.file_reading import parse_dash_file
 
 
 def build_tafel_figs(file_df, result_storage, sa_val, sa_type, log_i_range=None, e_range=None):
@@ -31,15 +32,15 @@ def build_tafel_figs(file_df, result_storage, sa_val, sa_type, log_i_range=None,
 
   if len(file_df) > 0:
     """Raw polarization curve."""
-    trace = go.Scatter(x=file_df['E'], y=file_df['I'], mode='lines', line_color=styles.colors[0], name='Data')
+    trace = go.Scatter(x=file_df['E'], y=file_df['I'], mode='lines', line_color=styles.COLORS[0], name='Data')
     fig_raw.add_trace(trace)
 
     """Corrected polarization curve."""
-    trace = go.Scatter(x=file_df['E_rhe'], y=file_df['I_sa'], mode='lines', line_color=styles.colors[0], name='Data')
+    trace = go.Scatter(x=file_df['E_rhe'], y=file_df['I_sa'], mode='lines', line_color=styles.COLORS[0], name='Data')
     fig_pol.add_trace(trace)
 
     """Tafel slope."""
-    trace = go.Scatter(x=file_df['log10_I_sa'], y=file_df['E_rhe'], mode='lines', line_color=styles.colors[0], name='Data')
+    trace = go.Scatter(x=file_df['log10_I_sa'], y=file_df['E_rhe'], mode='lines', line_color=styles.COLORS[0], name='Data')
     fig_tafel.add_trace(trace)
 
     """Draw fit region."""
@@ -55,7 +56,7 @@ def build_tafel_figs(file_df, result_storage, sa_val, sa_type, log_i_range=None,
       fig_tafel.add_hrect(y0=e_range[1], y1=y_range[1], **box_args)
 
   if len(result_storage)>0:
-    trace = go.Scatter(x=result_storage['log_i'], y=result_storage['e'], mode='lines', line=dict(color=styles.colors[1], dash='dash'), name='Fit')
+    trace = go.Scatter(x=result_storage['log_i'], y=result_storage['e'], mode='lines', line=dict(color=styles.COLORS[1], dash='dash'), name='Fit')
     fig_tafel.add_trace(trace)
 
   return fig_raw, fig_pol, fig_tafel
@@ -136,7 +137,7 @@ def build_tafel_inputs(app):
         id='tafel-model-input',
         options=[
           {'label': 'CO2 reduction', 'value': 'co2'},
-          {'label': 'Hydrogen evolution reaction (HER)', 'value': 'her'},
+          # {'label': 'Hydrogen evolution reaction (HER)', 'value': 'her'},
         ],
         value='co2',
         required=True,
@@ -151,7 +152,7 @@ def build_tafel_inputs(app):
         id='tafel-fitmethod-input',
         options=[
           {'label': 'Least squares', 'value': 'lsq'},
-          {'label': 'Bayesian (julius)', 'value': 'bayesian'},
+          # {'label': 'Bayesian (julius)', 'value': 'bayesian'},
         ],
         value='lsq',
         required=True,
@@ -238,14 +239,14 @@ def build_tafel_row(app):
     download = None
 
     if trig_id == 'tafel-upload':  # New file uploaded.
-      file_df = tafel_slope.load_data(templates.parse_file(new_file_content))
+      file_df = tafel_slope.load_tafel_data(parse_dash_file(new_file_content))
       file_df= file_df[file_df['I'] != 0]  # Remove zeros.
       for c in ['E_rhe', 'I_sa', 'log10_I_sa']:
         file_df.insert(len(file_df.columns), c, np.full(len(file_df), np.nan))
       file_name = new_file_name
 
     if len(file_df) > 0:
-      file_df['E_rhe'] = tafel_slope.correct_potential(file_df['E'], file_df['I'], ph, ru)
+      file_df['E_rhe'] = tafel_slope.corrected_potential(file_df['E'], file_df['I'], ph, ru)
       file_df['I_sa'] = file_df['I'] / sa_val
       file_df['log10_I_sa'] = np.log10(np.abs(file_df['I_sa']))
 
@@ -282,7 +283,7 @@ def build_tafel_row(app):
       fig_corr,
       fig_tafel,
       result_storage,
-      float(f"{tafel_slope_val:.4g} mV/decade") if tafel_slope_val!=no_update else no_update,
+      f"{tafel_slope_val:.4g} mV/decade" if tafel_slope_val!=no_update else no_update,
       is_fitoutput_open,
       download,
     ])

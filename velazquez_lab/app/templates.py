@@ -5,14 +5,6 @@ from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
-from io import StringIO
-
-
-def parse_file(contents):
-  # print(contents)
-  content_type, content_string = contents.split(',')
-  decoded = base64.b64decode(content_string)
-  return StringIO(decoded.decode('utf-8'))
 
 
 def build_modal(app, name, title, content):

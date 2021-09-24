@@ -4,11 +4,11 @@ import argparse
 import numpy as np
 import pandas as pd
 
-import velazquez_lab.pol.julius as jl
+# import velazquez_lab.pol.julius as jl
 import velazquez_lab.utils.linear_fitting as ft
 
 
-def load_data(file):
+def load_tafel_data(file):
   """Load data.
   Args:
     file: FIXME
@@ -18,15 +18,16 @@ def load_data(file):
   return df
 
 
-def correct_potential(potential, current, ph, ru=0):
-  """Correct potential from Ag/AgCl reference to RHE.
+def corrected_potential(potential, current, ph, ru=0):
+  """Corrected potential from Ag/AgCl reference to RHE.
   Args:
-    potential (array_like): FIXME
-    current (array_like): FIXME
+    potential (array_like): Potentials (in V).
+    current (array_like): Currents (in mA).
     ph (float): pH level between 0 and 14.
-    ru (float): uncompensated resistance in UNITS (FIXME).
+    ru (float): uncompensated resistance in Ohms (FIXME).
   """
-  potential_fixed = potential + 0.210 + 0.059*ph - current*(ru/1000.)
+  # potential_fixed = potential + 0.210 + 0.059*ph - current*(ru/1000.)
+  potential_fixed = potential + 0.210 + 0.059*ph - 0.15*ru*(current/1000)
   return potential_fixed
 
 
@@ -113,10 +114,12 @@ def fit_tafel_slope_lsq(voltages, log_currents, model='co2'):
     res_log_currents (array_like): Log10 o currents for plotting fit result.
   """
   if model == 'co2':
-    fitresult, optvals = ft.linear_fit(voltages, log_currents)
-    tafel_slope = np.abs(1000/optvals['m'])  # 1000 to convert V to mV.
+    m_fit, b_fit, redchi, fitresult = ft.linear_fit(voltages, log_currents, return_fitres=True)
+    m_fit = m_fit.n
+    b_fit = b_fit.n
+    tafel_slope = np.abs(1000/m_fit)  # 1000 to convert V to mV.
     res_voltages = voltages
-    res_log_currents = ft.linear_eqn(voltages, **optvals)
+    res_log_currents = ft.linear_eqn(voltages, m=m_fit, b=b_fit)
     rsq = 1 - fitresult.residual.var() / np.var(voltages)
   else:
     raise ValueError(f"Tafel slope model not implemented: {model}.")

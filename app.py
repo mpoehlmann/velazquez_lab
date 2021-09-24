@@ -16,6 +16,7 @@ import pandas as pd
 from velazquez_lab.app import templates
 from velazquez_lab.app.pol_page import create_pol_page
 from velazquez_lab.app.filt_page import create_filt_page
+from velazquez_lab.app.linfit_page import create_linfit_page
 from velazquez_lab.utils import styles
 
 
@@ -42,9 +43,8 @@ def build_app(start_page=1, theme='light', jupyter=False):
   """Define pages."""
   pages = pd.DataFrame([
     dict(id='pg-filt', label='Filtering', content=create_filt_page(app)),
+    dict(id='pg-linfit', label='Linear fitting', content=create_linfit_page(app)),
     dict(id='pg-pol', label='Polarization curves', content=create_pol_page(app)),
-    # dict(id='id_2', label='Label 2', content=create_pol_page),
-    # dict(id='id_3', label='Label 3', content=create_pol_page),
   ])
 
 
