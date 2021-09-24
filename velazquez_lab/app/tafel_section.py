@@ -24,8 +24,8 @@ from velazquez_lab.utils.file_reading import parse_dash_file
 def build_tafel_figs(file_df, result_storage, sa_val, sa_type, log_i_range=None, e_range=None):
   """Initialize figures."""
   fig_raw, fig_pol, fig_tafel = ( go.Figure() for _ in range(3) )
-  fig_raw.update_layout(xaxis_title='<b>E<sub>WE</sub> (V vs Ag/AgCl)</b>', yaxis_title='<b>I (mA)</b>', showlegend=True)
-  fig_pol.update_layout(xaxis_title='<b>E<sub>WE</sub> (V vs RHE)</b>', yaxis_title=f'<b><i>j</i> (mA/cm<sup>2</sup><sub>{sa_type}</sub>)</b>', showlegend=True)
+  fig_raw.update_layout(xaxis_title='<b>E<sub>WE</sub> (V vs Ag/AgCl)</b>', yaxis_title='<b>I (mA)</b>', showlegend=False)
+  fig_pol.update_layout(xaxis_title='<b>E<sub>WE</sub> (V vs RHE)</b>', yaxis_title=f'<b><i>j</i> (mA/cm<sup>2</sup><sub>{sa_type}</sub>)</b>', showlegend=False)
   fig_tafel.update_layout(xaxis_title=f'<b>log<sub>10</sub>(mA/cm<sup>2</sup><sub>{sa_type}</sub>)</b>', yaxis_title='<b>E<sub>WE</sub> (V vs RHE)</b>', showlegend=True)
 
   if len(file_df) > 0:
@@ -170,7 +170,7 @@ def build_tafel_inputs(app):
   """Fit output display."""
   storage = dcc.Store(data=dict(), id='tafel-result-storage', storage_type='memory')
   download = html.Div([
-    dbc.Button('Download fit results', id='tafel-download-button', className='btn-block btn-primary', n_clicks=0),
+    dbc.Button('Download fit results', id='tafel-download-btn', className='btn-block btn-primary', n_clicks=0),
     dcc.Download(id='tafel-download-dataframe-csv'),
     storage,
   ])
@@ -218,13 +218,14 @@ def build_tafel_row(app):
     Input('tafel-emax-input', 'value'),
     Input('tafel-logimin-input', 'value'),
     Input('tafel-logimax-input', 'value'),
+    Input('tafel-download-btn', 'n_clicks'),
     State('tafel-fitmethod-input', 'value'),
     State('tafel-model-input', 'value'),
     State('tafel-upload', 'contents'),
     State('tafel-file-storage', 'data'),
     State('tafel-result-storage', 'data'),
   )
-  def tafel_fit_callback(new_file_name, run_btn_clicks, sa_val, sa_type, ph, ru, e_min, e_max, log_i_min, log_i_max, fitmethod, model, new_file_content, file_storage, result_storage):
+  def tafel_fit_callback(new_file_name, run_btn_clicks, sa_val, sa_type, ph, ru, e_min, e_max, log_i_min, log_i_max, n_clicks_download, fitmethod, model, new_file_content, file_storage, result_storage):
     """Link Tafel slope elements together."""
     ctx = dash.callback_context
     trig_id = ctx.triggered[0]['prop_id'].split('.')[0] if ctx.triggered else None
@@ -259,17 +260,21 @@ def build_tafel_row(app):
       mask = (e>=e_min) & (e<=e_max) & (log_i>=log_i_min) & (log_i<=log_i_max)
       e, log_i = e[mask], log_i[mask]
       if fitmethod == 'lsq':
-        tafel_slope_val, result_storage['rsq'], result_storage['e'], result_storage['log_i'] = tafel_slope.fit_tafel_slope_lsq(e, log_i, model=model)
+        result_storage['tafel_slope'], result_storage['rsq'], result_storage['e'], result_storage['log_i'] = tafel_slope.fit_tafel_slope_lsq(e, log_i, model=model)
+        tafel_slope_val = result_storage['tafel_slope']
       # elif fitmethod == 'bayesian':
         # tafel_slope_val, rsq, res_voltages, res_log_currents = tafel_slope.fit_tafel_slope_bayesian(e, log_i, model=model)
       else:
         raise ValueError(f"Fit method '{fitmethod}' not implemented.")
       is_fitoutput_open = True
 
-    if trig_id == 'tafel-download-button':
-      pass
-      # FIXME
-      # download = dcc.send_data_frame(fitres_df.to_csv, 'tafel_fit_results.csv')
+    if trig_id == 'tafel-download-btn':
+      output_df = file_df.copy(deep=True)
+      output_df.insert(len(output_df.columns), 'tafel_slope', pd.Series([result_storage['tafel_slope']]))
+      output_df.insert(len(output_df.columns), 'rsq', pd.Series([result_storage['rsq']]))
+      output_df.insert(len(output_df.columns), 'tafel_fit_e', pd.Series(result_storage['e']))
+      output_df.insert(len(output_df.columns), 'tafel_fit_logi', pd.Series(result_storage['log_i']))
+      download = dcc.send_data_frame(output_df.to_csv, 'tafel_fit_results.csv')
 
     """Prepare return values."""
     fig_raw, fig_corr, fig_tafel = build_tafel_figs(file_df, result_storage, sa_val, sa_type, log_i_range=[log_i_min, log_i_max], e_range=[e_min, e_max])
