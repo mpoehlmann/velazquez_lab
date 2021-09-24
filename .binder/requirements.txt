@@ -4,7 +4,6 @@ dash_bootstrap_components
 dash_daq
 dash_trich_components
 jupyter-dash
-notebook==6.0.3
 jupyter_server_proxy
 lmfit
 matplotlib
@@ -23,3 +22,10 @@ seaborn
 theano-pymc
 tqdm
 uncertainties
+
+requests
+flask
+retrying
+ipython
+ipykernel
+notebook==6.0.3
