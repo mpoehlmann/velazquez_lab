@@ -3,8 +3,8 @@ dash
 dash_bootstrap_components
 dash_daq
 dash_trich_components
-jupyterlab<3
 jupyter-dash
+notebook==6.0.3
 jupyter_server_proxy
 lmfit
 matplotlib
