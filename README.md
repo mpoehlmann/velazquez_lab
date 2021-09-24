@@ -11,7 +11,7 @@ Code to make Jessica's life easier (and for the Velázquez Lab).
 
 ## Running instructions
 Click on the "launch data analysis app" badge above or follow this link:<br>
-https://mybinder.org/v2/gh/mpoehlmann/velazquez_lab/main?filepath=notebooks/jupyter_app.ipynb
+https://mybinder.org/v2/gh/mpoehlmann/velazquez_lab/main?filepath=jupyter_app.ipynb
 
 ![](docs/binder_running_tutorial.mp4)
 
