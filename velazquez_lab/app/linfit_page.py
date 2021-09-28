@@ -115,6 +115,7 @@ def create_linfit_page(app):
     Output('linfit-graph', 'figure'),
     Output('linfit-chi-graph', 'figure'),
     Output('linfit-fit-eqn', 'children'),
+    Output('linfit-fit-chisq', 'children'),
     Input('linfit-upload', 'contents'),
     Input('linfit-addrow-btn', 'n_clicks'),
     Input('linfit-fit-btn', 'n_clicks'),
@@ -136,6 +137,7 @@ def create_linfit_page(app):
     data_df['y_err'].fillna(0, inplace=True)
     output_df = pd.DataFrame.from_dict(output_df)
     linfit_eqn = ''
+    redchi_text = ''
 
     if trig_id == 'linfit-upload':
       f = parse_dash_file(new_file_content)
@@ -156,6 +158,7 @@ def create_linfit_page(app):
         'redchi': [redchi],
       })
       linfit_eqn = f'y = {m_fit} x  +  {b_fit}'
+      redchi_text = f'Reduced chi-squared = {redchi:.4g}'
 
     elif trig_id == 'ecsa-download-button':
       pass
@@ -167,6 +170,7 @@ def create_linfit_page(app):
       fig_linfit,
       fig_chi,
       linfit_eqn,
+      redchi_text,
     ])
     return outputs
 
@@ -192,7 +196,7 @@ def create_linfit_page(app):
       html.Div('Linear Fitting', className='section-header mb-1'),
       dbc.Row([
         dbc.Col(inputs, className='col-4'),
-        dbc.Col(templates.build_card('Graph', [dcc.Graph(id='linfit-graph'), html.Div(id='linfit-fit-eqn')]), className='col-4'),
+        dbc.Col(templates.build_card('Graph', [dcc.Graph(id='linfit-graph'), html.Div(id='linfit-fit-eqn'), html.Div(id='linfit-fit-chisq')]), className='col-4'),
         dbc.Col(templates.build_card('Graph', dcc.Graph(id='linfit-chi-graph')), className='col-4'),
       ]),
       html.Hr(className='section-hr'),
