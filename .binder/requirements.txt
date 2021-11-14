@@ -15,7 +15,7 @@ numericalunits
 numpy
 pandas
 paramiko
-plotly
+plotly=5.1.0
 pymc3
 scipy
 seaborn
